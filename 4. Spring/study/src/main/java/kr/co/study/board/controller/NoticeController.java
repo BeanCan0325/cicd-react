@@ -1,5 +1,7 @@
 package kr.co.study.board.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
 import kr.co.study.board.dto.ReqBoardDTO;
@@ -79,17 +82,18 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/create")
-	public String create(ReqBoardDTO request, HttpSession session) {
+	public String create(ReqBoardDTO request, HttpSession session,
+						 @RequestParam(value = "files", required = false) List<MultipartFile> files) {	
 		// 1. 로그인한 사용자 정보 세션에서 꺼내기
 		ResLoginDTO loginUser = (ResLoginDTO) session.getAttribute("LOGIN_USER");
-		
+		 
 		// 2. 로그인한 사용자가 아니라면 로그인 페이지로 이동
 		if (loginUser == null) {
 			return "redirect:/member/login/form";
 		}
 		
 		// 3. 게시글 저장
-		boardService.write(request, loginUser.getId());
+		boardService.write(request, files, loginUser.getId());
 		
 		// 4. 목록으로 이동
 		return "redirect:/board/notice";

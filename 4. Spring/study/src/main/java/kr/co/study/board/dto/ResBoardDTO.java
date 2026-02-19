@@ -1,12 +1,14 @@
 package kr.co.study.board.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter 
 @NoArgsConstructor
@@ -20,6 +22,7 @@ public class ResBoardDTO {
 	private String writerName;
 	private LocalDateTime createdAt;
 	private int viewCount;
+	private List<ResBoardFileDTO> files;
 }
 
 
