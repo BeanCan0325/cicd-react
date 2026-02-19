@@ -74,7 +74,7 @@ public class NoticeController {
 		ResBoardDTO response = boardService.getBoardDetail(id);
 		model.addAttribute("notice", response);
 		return "pages/board/notice-detail";
-	}
+	} 
 	
 	@GetMapping("/create/form")
 	public String createForm() {
@@ -111,9 +111,10 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/edit")
-	public String edit(ReqBoardDTO request, HttpSession session) {
+	public String edit(ReqBoardDTO request, HttpSession session,
+					   @RequestParam(value = "files", required = false) List<MultipartFile> files) {
 		// 1. 로그인한 사용자 조회
-		ResLoginDTO loginUser = (ResLoginDTO) session.getAttribute("LOGIN_USER");
+		ResLoginDTO loginUser = (ResLoginDTO) session.getAttribute("LOGIN_USER"); 
 		
 		// 2. 로그인하지 않은 사용자는 수정 불가
 		if (loginUser == null) {
@@ -121,7 +122,7 @@ public class NoticeController {
 		}
 		
 		// 3. 게시글 수정 진행
-		boardService.edit(request, loginUser.getId());
+		boardService.edit(request, files, loginUser.getId());
 		
 		return "redirect:/board/notice/detail?id=" + request.getId();
 	}

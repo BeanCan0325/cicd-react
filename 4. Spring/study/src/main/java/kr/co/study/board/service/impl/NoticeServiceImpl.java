@@ -148,7 +148,7 @@ public class NoticeServiceImpl implements BoardService {
 	
 	@Override
 	@Transactional
-	public void edit(ReqBoardDTO request, Long id) {
+	public void edit(ReqBoardDTO request, List<MultipartFile> files, Long id) {
 		
 		// 1. 기존 게시글이 존재하는지 조회
 		Board board = boardRepository.findById(request.getId()).orElse(null);
@@ -160,7 +160,11 @@ public class NoticeServiceImpl implements BoardService {
 		// 2. 게시글 수정 반영
 		board.setCategory(request.getCategory());
 		board.setTitle(request.getTitle());
-		board.setContent(request.getContent());;
+		board.setContent(request.getContent());
+		
+		// 3. 파일 처리
+		boardFileService.replaceFiles(board, files);
+		
 	}
 	
 	@Override
@@ -175,8 +179,11 @@ public class NoticeServiceImpl implements BoardService {
 		}  else if(!board.getWriter().getId().equals(loginUserId)) {
 			System.out.println("삭제 권한이 없습니다.");
 		}
+		
+		// 3. 파일 삭제(로컬 + DB)
+		boardFileService.deleteFiles(board.getId());
  		
-		// 3. 삭제 처리
+		// 4. 삭제 처리
 		boardRepository.delete(board);
 	}
 } 

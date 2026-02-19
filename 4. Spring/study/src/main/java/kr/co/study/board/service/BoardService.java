@@ -55,7 +55,7 @@ public interface BoardService {
 	 * @param request
 	 * @param id
 	 */
-	void edit(ReqBoardDTO request, Long id);
+	void edit(ReqBoardDTO request, List<MultipartFile> files, Long id);
 	
 	/**
 	 * 게시글 삭제 기능

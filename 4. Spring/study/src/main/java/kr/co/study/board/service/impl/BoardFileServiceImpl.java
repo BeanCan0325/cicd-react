@@ -49,11 +49,35 @@ public class BoardFileServiceImpl implements BoardFileService {
 		return fileList;
 		
 	}
-	 
 	
-	
-	
-	
+	@Override
+	@Transactional
+	public void replaceFiles(Board board, List<MultipartFile> files) {
+		// 1. 새로 업로드된 파일이 없으면 종료 (기존 파일 유지)
+		if(!hasNewFiles(files)) return;
+		
+		// 2. 기존 파일 목록 조회 
+		List<BoardFile> oldFiles = boardFileRepository.findAllByBoardId(board.getId());
+		
+		// 3. 디스크에 저장된 기존 파일 삭제
+		File dir = new File(UPLOAD_DIR);
+		
+		for(BoardFile oldFile : oldFiles) {
+
+			File diskFile = new File(dir, oldFile.getStoredFileName());
+			
+			if(diskFile.exists()) {
+				diskFile.delete(); // 파일 삭제
+			}
+			
+		}
+		
+		// 4. DB 기존 파일 정보 삭제
+		boardFileRepository.deleteAll(oldFiles);
+		
+		// 5. 새 파일 저장
+		saveFiles(board, files);
+	}
 	
 	@Override 
 	@Transactional 
@@ -82,6 +106,25 @@ public class BoardFileServiceImpl implements BoardFileService {
 			
 			boardFileRepository.save(boardFile);
 		}
+	}
+	
+	@Override
+	@Transactional
+	public void deleteFiles(Long boardId) {
+		// 1. 기존 첨부파일 목록 조회
+		List<BoardFile> oldFiles = boardFileRepository.findAllByBoardId(boardId);
+		
+		// 2. 디스크에 저장된 기존 파일 삭제
+		File dir = new File(UPLOAD_DIR);
+		for(BoardFile oldFile : oldFiles) {
+			File diskFile = new File(dir, oldFile.getStoredFileName());
+			if(diskFile.exists()) {
+				diskFile.delete();
+			}
+		}
+		
+		// 3. DB 기존 데이터 삭제
+		boardFileRepository.deleteAll(oldFiles);
 	}
 	
 	
@@ -141,6 +184,26 @@ public class BoardFileServiceImpl implements BoardFileService {
 				
 		
 	} 
+	
+	// 새로운 업로드 파일이 있는지 검사하는 메서드
+	private boolean hasNewFiles(List<MultipartFile> files) {
+		// 1. files 리스트가 없거나 비어있으면 false 반환
+		if(files == null || files.isEmpty()) {
+			return false;
+		}
+		
+		// 2. 실제 업로드한 파일이 1개라도 존재 한다면 true 반환
+		for(MultipartFile file : files) {
+			if(file != null && !file.isEmpty()) {
+				return true;
+			}
+		}
+		
+		// 3. 모두 null 또는 epmty라면 false 반환
+		return false;
+	}
+	
+	
 
 }
 
