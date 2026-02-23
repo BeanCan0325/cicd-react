@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor 
 @Builder
 public class ResBoardDTO {
-	private Long id;
-	private String category;
-	private String title;
-	private String content;
+	private Long id = 1;
+	private String category = "공지";
+	private String title = "제목입니다.";
+	private String content = "내용!!!";
 	private String writerName;
 	private LocalDateTime createdAt;
 	private int viewCount;

@@ -152,13 +152,12 @@ public class NoticeServiceImpl implements BoardService {
 		
 		// 1. 기존 게시글이 존재하는지 조회
 		Board board = boardRepository.findById(request.getId()).orElse(null);
-		
 		if(board != null && !board.getWriter().getId().equals(id)) {
 			System.out.println("게시글이 없거나 작성자가 아닙니다.");
 		}
 
 		// 2. 게시글 수정 반영
-		board.setCategory(request.getCategory());
+		board.setCategory(request.getCategory()); 
 		board.setTitle(request.getTitle());
 		board.setContent(request.getContent());
 		
