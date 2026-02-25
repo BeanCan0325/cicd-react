@@ -1,4 +1,4 @@
-package kr.co.study.board.dto;
+package kr.co.restStudy.board.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,0 +1,83 @@
+#external-style {
+    color: aqua;
+    font-size: 26px;
+}
+
+/* 
+    전체 선택자
+* {
+    color:antiquewhite;
+} */
+
+/* 클래스 선택자 */
+.color_blue {
+    color:blue;
+}
+
+.small_font {
+    font-size: 10px;
+}
+
+/* 아이디 선택자 */
+#aqua_font {
+    color: aqua;
+}
+
+/* 속성 선택자 */
+/* input[type="text"] {
+    background-color: blue;
+} */
+
+.input-password[type="password"] {
+    background-color: aquamarine;
+}
+
+/* 그룹 선택자 */
+.btn, .color_red {
+    color: red;
+}
+
+/* 자식 선택자 */
+div > h2 {
+    color:cyan;
+}
+
+/* 후손 선택자(자식 포함) */
+div p {
+    color:rgb(100, 131, 144)
+}
+
+/* 동위 선택자 */
+h2 ~ ul {
+    color:greenyellow;
+}
+
+/* 반응 선택자 */
+.reaction-btn:hover {
+    background-color: antiquewhite;
+}
+
+.reaction-btn:active {
+    background-color: aquamarine;
+}
+
+.reaction-input:focus {
+    color: red;
+    cursor:help;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

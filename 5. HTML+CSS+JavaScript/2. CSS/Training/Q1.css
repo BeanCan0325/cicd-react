@@ -1,0 +1,25 @@
+a:hover {
+    cursor: wait;
+}
+
+table *{
+    border: 1px solid black;
+}
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+    background-color: powderblue;
+}
+
+tbody {
+    background-color: aliceblue;
+}
+
+.text-color-red {
+    color : red;
+}
+
+.text-color-blue {
+    color: blue;
+}
