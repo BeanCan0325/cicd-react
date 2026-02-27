@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            background-color: #007bff;
+            display: flex;
+            justify-content: center;
+            /* align-items: flex-end; */
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border-radius: 50px;
+            position: absolute;
+            bottom: 0px;
+            animation: bounce 5s linear infinite;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-50vh);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

@@ -23,21 +23,6 @@ nav a {
     position: relative;
 }
 
-nav a::after {
-    content: "";
-    height: 2px;
-    width: 0;
-    background: #3b82f6;
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    transition: 0.3s;
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
 .services {
     padding: 50px;
     display: flex;
@@ -54,22 +39,6 @@ nav a:hover::after {
     transition: 0.3s;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-}
-
-@media(max-width: 768px){
-    .card {
-        flex: 1 1 calc(50% - 20px);
-    }
-}
-
-@media(max-width: 480px){
-    .card {
-        flex: 1 1 100%;
-    }
-}
 </style>
 </head>
 <body>
