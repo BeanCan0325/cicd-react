@@ -2,7 +2,7 @@ name: React Deploy to S3 (OIDC)
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
 
 permissions:
   id-token: write
